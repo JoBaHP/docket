@@ -1,3 +1,5 @@
+
+import {first, filter} from 'rxjs/operators';
 import * as fromRoot from "../app.reducer";
 import * as userActions from "../shared/user/user.actions";
 
@@ -42,9 +44,9 @@ export class LoginComponent implements OnInit {
     }
 
     this._store
-      .select(fromRoot.getUser)
-      .filter(data => !!data)
-      .first()
+      .select(fromRoot.getUser).pipe(
+      filter(data => !!data),
+      first(),)
       .subscribe(user => {
         this._router.navigate(["/"]);
       });

@@ -20,7 +20,7 @@ import { FourOFourComponent } from "./four-o-four/four-o-four.component";
 import { HeaderComponent } from "./header/header.component";
 import { HelpComponent } from "./help/help.component";
 import { HomeComponent } from "./home/home.component";
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from "./login/login.component";
 import { ModalWindowComponent } from "./modal-window/modal-window.component";
 import { NgModule } from "@angular/core";
@@ -60,7 +60,7 @@ import { environment } from "../environments/environment";
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     StoreModule.forRoot(reducers, {
       metaReducers: [localStorageSyncReducer]
     }),

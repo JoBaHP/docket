@@ -4,7 +4,7 @@ import * as userActions from "../shared/user/user.actions";
 
 import { Component, OnInit } from "@angular/core";
 
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { UserModel } from "../shared/user/user.interface";
 

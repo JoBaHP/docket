@@ -100,7 +100,7 @@ textarea {
   }
 
   @at-root {
-    /deep/ .mobile .group-item {
+    ::ng-deep .mobile .group-item {
       background-color: $color-light !important;
       border-top: 1px solid;
       border-radius: 0;
@@ -112,7 +112,7 @@ textarea {
   }
 
   @at-root {
-    /deep/ .mobile .group-item .group-delete {
+    ::ng-deep .mobile .group-item .group-delete {
       opacity: 1;
     }
   }
@@ -122,7 +122,7 @@ textarea {
   }
 
   @at-root {
-    /deep/ .mobile .group-item .group-buttons {
+    ::ng-deep .mobile .group-item .group-buttons {
       opacity: 1;
     }
   }
@@ -242,10 +242,10 @@ textarea {
 }
 
 @at-root {
-  /deep/ .mobile .item .delete-button {
+  ::ng-deep .mobile .item .delete-button {
     opacity: 1 !important;
   }
-  /deep/ .mobile .item .icon-move-vertical {
+  ::ng-deep .mobile .item .icon-move-vertical {
     opacity: 1 !important;
   }
 }

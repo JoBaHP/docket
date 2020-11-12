@@ -1,3 +1,5 @@
+
+import {combineLatest as observableCombineLatest,  Observable } from 'rxjs';
 import * as fromRoot from "../app.reducer";
 
 import {
@@ -7,7 +9,6 @@ import {
 import { Component, ElementRef, OnInit } from "@angular/core";
 
 import { ChecklistService } from "../checklist-service/checklist.service";
-import { Observable } from "rxjs/Rx";
 import { ScrollPositionModel } from "../shared/window-size/scroll-data.interface";
 import { Store } from "@ngrx/store";
 import { WindowSizeService } from "../shared/window-size/window-size.service";
@@ -31,7 +32,7 @@ export class ContentComponent implements OnInit {
     private _checklistService: ChecklistService,
     private _windowSizeService: WindowSizeService
   ) {
-    Observable.combineLatest(
+    observableCombineLatest(
       this._store.select(fromRoot.getChecklist),
       this._store.select(fromRoot.getChecklistStateChangeNumber)
     ).subscribe(data => {

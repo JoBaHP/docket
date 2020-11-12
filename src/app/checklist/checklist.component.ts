@@ -1,3 +1,10 @@
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription
+} from "rxjs";
+
+import { filter, first } from "rxjs/operators";
 import * as checklistActions from "../checklist-service/checklist.actions";
 import * as fromRoot from "../app.reducer";
 
@@ -12,7 +19,6 @@ import {
   OnDestroy,
   OnInit
 } from "@angular/core";
-import { Observable, Subscription } from "rxjs/Rx";
 
 import { ActivatedRoute } from "@angular/router";
 import { ChecklistService } from "../checklist-service/checklist.service";
@@ -63,7 +69,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   ) {
     this._sailsService.connect(environment.sailsApi);
 
-    this.route.params.first().subscribe(params => {
+    this.route.params.pipe(first()).subscribe(params => {
       this._checklistService.loadChecklistViaSocket(params.id);
 
       this._sailsService
@@ -152,10 +158,12 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this one is triggered just once on page load
     this.checklist$
-      .filter(data => {
-        return !!data;
-      })
-      .first()
+      .pipe(
+        filter(data => {
+          return !!data;
+        }),
+        first()
+      )
       .subscribe(checklist => {
         this.checklist = checklist;
         this._checklistService.addToLocalStore(checklist);
@@ -168,13 +176,15 @@ export class ChecklistComponent implements OnInit, OnDestroy {
     // this one is updated continuously
 
     this.subscriptions.add(
-      Observable.combineLatest(
+      observableCombineLatest(
         this.checklist$,
         this._store.select(fromRoot.getChecklistStateChangeNumber)
       )
-        .filter(data => {
-          return !!data[0];
-        })
+        .pipe(
+          filter(data => {
+            return !!data[0];
+          })
+        )
         .subscribe(data => {
           // const checklist = JSON.parse(JSON.stringify(data[0]));
           this.checklist = data[0];
@@ -347,10 +357,10 @@ export class ChecklistComponent implements OnInit, OnDestroy {
 
   saveChecklist(changeForContent: boolean) {
     this.selectedInput = null;
-    this.checklistId$.first().subscribe(checklistId => {
+    this.checklistId$.pipe(first()).subscribe(checklistId => {
       this._checklistService
         .saveChecklist(checklistId, this.checklist, changeForContent)
-        .first()
+        .pipe(first())
         .subscribe(response => {});
     });
   }

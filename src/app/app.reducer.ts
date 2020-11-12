@@ -11,17 +11,12 @@ import {
   ActionReducer,
   ActionReducerMap,
   createFeatureSelector,
-  createSelector
+  createSelector,
+  MetaReducer
 } from "@ngrx/store";
 
 import { environment } from "../environments/environment";
 import { localStorageSync } from "ngrx-store-localstorage";
-/**
- * storeFreeze prevents state from being mutated. When mutation occurs, an
- * exception will be thrown. This is useful during development mode to
- * ensure that none of the reducers accidentally mutates the state.
- */
-import { storeFreeze } from "ngrx-store-freeze";
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -53,12 +48,12 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<any, any> {
   };
 }
 
-export const metaReducers: ActionReducer<any, any>[] = !environment.production
-  ? [logger]
-  : [];
+export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? [logger, localStorageSyncReducer]
+  : [localStorageSyncReducer];
 
 export function localStorageSyncReducer(
-  reducer: ActionReducerMap<any>
+  reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({ keys: synchronizedReducers, rehydrate: true })(
     reducer

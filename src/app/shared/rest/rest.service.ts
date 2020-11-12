@@ -1,6 +1,6 @@
 import * as fromRoot from "../../app.reducer";
 
-import { Headers, RequestOptions } from "@angular/http";
+import { HttpHeaders } from "@angular/common/http";
 
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
@@ -10,31 +10,29 @@ export class RestService {
   constructor(private _store: Store<fromRoot.State>) {}
 
   getAuthHeaders() {
-    const headerData: any = {
-      "Content-Type": "application/json; charset=utf-8",
-      Accept: "application/json"
-    };
+    let headers = new HttpHeaders();
+
+    headers = headers.set("Content-Type", "application/json; charset=utf-8");
+    headers = headers.set("Accept", "application/json");
+
     let token = "";
     this._store.select(fromRoot.getAuthToken).subscribe(data => {
       token = data;
     });
 
     if (token) {
-      headerData["authorization"] = `Bearer ${token}`;
+      headers = headers.set("authorization", `Bearer ${token}`);
     }
-    const headers = new Headers(headerData);
 
-    return new RequestOptions({ headers: headers });
+    return headers;
   }
 
   getJsonHeaders() {
-    const headerData: any = {
-      "Content-Type": "application/json; charset=utf-8",
-      Accept: "application/json"
-    };
+    let headers = new HttpHeaders();
 
-    const headers = new Headers(headerData);
+    headers = headers.set("Content-Type", "application/json; charset=utf-8");
+    headers = headers.set("Accept", "application/json");
 
-    return new RequestOptions({ headers: headers });
+    return headers;
   }
 }

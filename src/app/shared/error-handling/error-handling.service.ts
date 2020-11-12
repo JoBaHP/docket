@@ -1,8 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import * as fromRoot from "../../app.reducer";
 import * as userActions from "../user/user.actions";
 
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
 import { Response } from "@angular/http";
 import { Router } from "@angular/router";
 import { StatusBarService } from "../../status-bar/status-bar.service";
@@ -39,6 +40,6 @@ export class ErrorHandlingService {
 
     this._statusBarService.setStatus(errMsg, "error");
 
-    return Observable.throw(errMsg);
+    return observableThrowError(errMsg);
   }
 }

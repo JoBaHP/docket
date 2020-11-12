@@ -1,21 +1,21 @@
 import * as fromRoot from "../../app.reducer";
 
 import { ErrorHandlingService } from "../error-handling/error-handling.service";
-import { Http } from "@angular/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { RestService } from "../rest/rest.service";
 import { StatusBarService } from "../../status-bar/status-bar.service";
 import { Store } from "@ngrx/store";
-import { Subject } from "rxjs/Subject";
+import { map, catchError } from "rxjs/operators";
 import { UserModel } from "./user.interface";
 import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class UserService {
-  private jsonHeaders;
+  private jsonHeaders: HttpHeaders;
   constructor(
-    private _http: Http,
+    private _http: HttpClient,
     private _store: Store<fromRoot.State>,
     private _statusBarService: StatusBarService,
     private _restService: RestService,
@@ -26,22 +26,26 @@ export class UserService {
 
   postUser(user: UserModel) {
     return this._http
-      .post(`${environment.sailsApi}/signup`, user, this.jsonHeaders)
-      .map(res => {
-        try {
-          // ensure that there cannot be any brackets '<' '>' in the json
-          return res.json() || {};
-        } catch (err) {
-          this._statusBarService.setStatus(err, "error");
-        }
+      .post(`${environment.sailsApi}/signup`, user, {
+        headers: this.jsonHeaders
       })
-      .catch(e => {
-        return this._errorHandlingService.errorHandler(e);
-      });
+      .pipe(
+        map(res => {
+          try {
+            // ensure that there cannot be any brackets '<' '>' in the json
+            return res;
+          } catch (err) {
+            this._statusBarService.setStatus(err, "error");
+          }
+        }),
+        catchError(e => {
+          return this._errorHandlingService.errorHandler(e);
+        })
+      );
   }
 
   updateUser(userId: string, checklistId: string) {
-    const authHeaders = this._restService.getAuthHeaders();
+    const authHeaders = { headers: this._restService.getAuthHeaders() };
 
     return this._http
       .put(
@@ -49,51 +53,62 @@ export class UserService {
         { checklistId },
         authHeaders
       )
-      .map(res => {
-        try {
-          // ensure that there cannot be any brackets '<' '>' in the json
-          return res.json() || {};
-        } catch (err) {
-          this._statusBarService.setStatus(err, "error");
-        }
-      })
-      .catch(e => {
-        return this._errorHandlingService.errorHandler(e);
-      });
+      .pipe(
+        map(res => {
+          try {
+            // ensure that there cannot be any brackets '<' '>' in the json
+            return res;
+          } catch (err) {
+            this._statusBarService.setStatus(err, "error");
+          }
+        }),
+        catchError(e => {
+          return this._errorHandlingService.errorHandler(e);
+        })
+      );
   }
 
   getUsersChecklists(userId: string) {
-    const authHeaders = this._restService.getAuthHeaders();
+    const authHeaders = { headers: this._restService.getAuthHeaders() };
 
     return this._http
       .get(`${environment.sailsApi}/user/${userId}/checklist`, authHeaders)
-      .map(res => {
-        try {
-          // ensure that there cannot be any brackets '<' '>' in the json
-          return res.json() || {};
-        } catch (err) {
-          this._statusBarService.setStatus(err, "error");
-        }
-      })
-      .catch(e => {
-        return this._errorHandlingService.errorHandler(e);
-      });
+      .pipe(
+        map(res => {
+          try {
+            // ensure that there cannot be any brackets '<' '>' in the json
+            return res;
+          } catch (err) {
+            this._statusBarService.setStatus(err, "error");
+          }
+        }),
+        catchError(e => {
+          return this._errorHandlingService.errorHandler(e);
+        })
+      );
   }
 
   loginUser(user: UserModel) {
     return this._http
-      .post(`${environment.sailsApi}/login`, user, this.jsonHeaders)
-      .map(res => {
-        try {
-          // ensure that there cannot be any brackets '<' '>' in the json
-          const cleanedResult = res.text().replace(/<\/?[^>]+(>|$)/g, "");
-          return JSON.parse(cleanedResult) || {};
-        } catch (err) {
-          this._statusBarService.setStatus(err, "error");
-        }
+      .post(`${environment.sailsApi}/login`, user, {
+        headers: this.jsonHeaders
       })
-      .catch(e => {
-        return this._errorHandlingService.errorHandler(e);
-      });
+      .pipe(
+        map(res => {
+          try {
+            // ensure that there cannot be any brackets '<' '>' in the json
+            const cleanedResult = JSON.stringify(res).replace(
+              /<\/?[^>]+(>|$)/g,
+              ""
+            );
+            return JSON.parse(cleanedResult) || {};
+          } catch (err) {
+            this._statusBarService.setStatus(err, "error");
+          }
+        }),
+        catchError(e => {
+          return this._errorHandlingService.errorHandler(e);
+        })
+      );
   }
 }

@@ -4,7 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
+  /* production: false,
   sailsApi: 'http://localhost:1337',
-  websocketUrl: 'http://localhost:1337'
+  websocketUrl: 'http://localhost:1337' */
+  production: true,
+  sailsApi: "https://c-heck.herokuapp.com",
+  websocketUrl: "https://c-heck.herokuapp.com"
 };

@@ -1,6 +1,5 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 
-import { DOCUMENT } from "@angular/platform-browser";
 import { ScrollPositionModel } from "./scroll-data.interface";
 
 @Injectable()

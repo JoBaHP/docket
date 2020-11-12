@@ -1,3 +1,5 @@
+
+import {first, filter} from 'rxjs/operators';
 import * as checklistActions from "../checklist-service/checklist.actions";
 import * as fromRoot from "../app.reducer";
 import * as userActions from "../shared/user/user.actions";
@@ -27,15 +29,15 @@ export class HomeComponent implements OnInit {
     this._store.dispatch(new checklistActions.SetChecklistAction(null));
 
     this._store
-      .select(fromRoot.getUser)
-      .filter(data => !!data)
+      .select(fromRoot.getUser).pipe(
+      filter(data => !!data))
       .subscribe(user => {
         this._store.dispatch(new userActions.GetUsersChecklists(user.id));
       });
 
     this._store
-      .select(fromRoot.getChecklistsByUser)
-      .filter(data => !!data)
+      .select(fromRoot.getChecklistsByUser).pipe(
+      filter(data => !!data))
       .subscribe(checklists => {
         this.checklistsByLoggedUser = checklists;
       });
@@ -50,9 +52,9 @@ export class HomeComponent implements OnInit {
       new checklistActions.CreateChecklistAction(emptyChecklist)
     );
     this._store
-      .select(fromRoot.getChecklist)
-      .filter(data => !!data)
-      .first()
+      .select(fromRoot.getChecklist).pipe(
+      filter(data => !!data),
+      first(),)
       .subscribe(checklist => {
         this._router.navigate([`list/${checklist.id}`]);
       });
