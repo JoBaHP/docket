@@ -1,0 +1,42 @@
+<div class="status-bar-container">
+    <div
+        class="status-bar"
+        *ngFor="let status of statusBarService.statusStack; let i = index"
+        [ngClass]="{ 'error': status.type === 'error', 'success': status.type === 'success', 'info': status.type === 'info' }"
+    >
+        <div
+            class="close-button"
+            (click)="closeBar(i)"
+        >
+            <svg
+                class="icon-cross"
+                role="button"
+            >
+                <use :xlink:href="assets/defs.svg#icon-cross"></use>
+            </svg>
+        </div>
+        <div class="content-wrapper">
+            <div class="status-bar-title">
+                <span
+                    *ngIf="status.type === 'error'"
+                    data-translation="status-bar.error-title"
+                >
+                    Error
+                </span>
+                <span
+                    *ngIf="status.type === 'success'"
+                    data-translation="status-bar.success-title"
+                >
+                    Success
+                </span>
+                <span
+                    *ngIf="status.type === 'info'"
+                    data-translation="status-bar.info-title"
+                >
+                    Info
+                </span>
+            </div>
+            <div class="status-bar-content">{{ status.message }}</div>
+        </div>
+    </div>
+</div>

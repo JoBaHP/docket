@@ -1,0 +1,33 @@
+@import './_colors.scss';
+
+.button,
+%button {
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  border: 0;
+  position: relative;
+  text-decoration: none !important;
+  background-color: $color-main;
+  color: $color-light;
+  font-size: 16px;
+
+  &.button-option {
+    @extend %rejected-button;
+  }
+
+  &[disabled] {
+    background-color: $color-disabled;
+  }
+}
+
+.rejected-button,
+%rejected-button {
+  outline: 2px solid $color-main;
+  outline-offset: -2px;
+  background-color: $color-light;
+  cursor: pointer;
+
+  span {
+    color: $color-main;
+  }
+}

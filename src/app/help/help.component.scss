@@ -1,0 +1,37 @@
+@import "../../lib/colors";
+@import "../../lib/buttons";
+@import "../../lib/forms";
+
+:host {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.page {
+  width: 50rem;
+  max-width: 100%;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+.list-style-none {
+  list-style: none;
+}
+
+.li-headline {
+  font-size: 1.5rem;
+  color: $color-main;
+  margin-top: 2rem;
+}
+
+.li-text {
+  font-size: 1rem;
+  color: $color-text-dark;
+}

@@ -1,0 +1,57 @@
+<header>
+    <nav class="nav-item help">
+        <div class="nav-item user">
+            <div class="nav-inner">
+
+                <a routerLink="/help">
+                    <svg class="icon icon-lifebuoy">
+                        <use xlink:href="assets/defs.svg#icon-lifebuoy"></use>
+                    </svg>
+                    FAQ
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-inner">
+
+            <a
+                routerLink="/login"
+                *ngIf="!user"
+            >
+                <svg class="icon icon-key">
+                    <use xlink:href="assets/defs.svg#icon-key"></use>
+                </svg>
+                login
+            </a>
+
+            <span *ngIf="user">
+                <div class="user-email">{{user.email}}</div>
+                <div class="log-out">
+                    <svg class="icon icon-log-out">
+                        <use xlink:href="assets/defs.svg#icon-log-out"></use>
+                    </svg>
+                    <a
+                        routerLink="/"
+                        (click)="logout()"
+                    >
+                        Logout
+                    </a>
+                </div>
+
+            </span>
+        </div>
+    </nav>
+    <div class="logo">
+        <a
+            routerLink="/"
+            tabindex="1"
+            aria-label="Back home"
+        >
+            <svg class="icon icon-docket">
+                <use xlink:href="assets/defs.svg#icon-docket-logo"></use>
+            </svg>
+        </a>
+
+    </div>
+
+</header>

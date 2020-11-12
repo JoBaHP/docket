@@ -1,0 +1,63 @@
+@import "../../lib/variables";
+@import "../../lib/buttons";
+
+:host {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  margin: 0 auto;
+  width: 100%;
+  max-width: $desktop-break-point;
+}
+
+.create-checklist-wrap {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.introduction {
+  margin: 0 auto;
+  padding-top: 2rem;
+  max-width: 25rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.add-checklist-button {
+  margin: 2rem;
+}
+
+.info-block {
+  margin: 0 auto;
+  max-width: 22rem;
+  text-align: center;
+}
+
+.checklist-history-wrap {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.checklist-history-title {
+  text-align: center;
+}
+
+.checklist-history {
+  margin: 0;
+  padding: 2rem 0 0;
+  list-style: none;
+}
+
+.history-item {
+  text-align: left;
+  font-size: 16px;
+  padding: 5px;
+  border-bottom: 1px solid $color-line;
+}

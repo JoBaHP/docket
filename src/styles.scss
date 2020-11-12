@@ -1,0 +1,92 @@
+@import './lib/_colors.scss';
+@import './lib/variables.scss';
+
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  color: $color-text;
+  height: 100%; /* if enabled body scrolling in window service does not work */
+  font-family: Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+hr {
+  border-width: 0;
+  border-top: 2px solid currentColor;
+  margin: 2rem 0;
+}
+
+/* default inputs */
+
+input,
+select {
+  border: 1px solid $color-border;
+  background-color: $color-light;
+}
+
+input {
+  height: 38px;
+  line-height: 36px;
+}
+
+input::placeholder {
+  color: $color-placeholder;
+}
+
+[contenteditable='true']:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+
+div.placeholder:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+
+.icon {
+  fill: $color-text-light;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+}
+
+/* Draggable "Dragula "*/
+
+.gu-mirror {
+  list-style: none;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 0.75rem;
+}
+
+@media screen and (min-width: $min-break-point) {
+  html,
+  body {
+    font-size: calc(
+      0.75rem + 0.25 * ((100vw - #{$min-break-point}) / #{$min-max-breakpoint-difference})
+    );
+  }
+}
+
+@media screen and (min-width: $desktop-break-point) {
+  html,
+  body {
+    font-size: 1rem;
+  }
+}

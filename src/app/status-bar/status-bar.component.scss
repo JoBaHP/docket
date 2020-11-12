@@ -1,0 +1,58 @@
+@import "../../lib/_colors.scss";
+
+.status-bar-container {
+  overflow: hidden;
+  position: fixed;
+  right: 15px;
+  transition: max-height 0.5s;
+  z-index: 10;
+  top: 25px;
+}
+
+.status-bar {
+  width: 250px;
+  margin-bottom: 10px;
+}
+
+.error {
+  background: $color-error;
+}
+
+.success {
+  background: $color-success;
+}
+
+.info {
+  background: $color-info;
+}
+
+.close-button {
+  padding: 10px;
+  position: absolute;
+  right: 0;
+
+  .icon-cross {
+    height: 15px;
+    width: 15px;
+    fill: $color-light;
+  }
+}
+
+.content-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 40px 10px 10px;
+}
+
+.status-bar-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: $color-light;
+}
+
+.status-bar-content {
+  min-height: 24px;
+  color: $color-light;
+}

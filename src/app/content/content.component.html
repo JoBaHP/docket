@@ -1,0 +1,36 @@
+<div
+    class="content-placeholder"
+    *ngIf="checklistData"
+></div>
+<nav
+    class="content"
+    *ngIf="checklistData"
+    role="navigation"
+>
+    <div class="content-title">Content:</div>
+    <div class="content-list-wrap">
+        <div
+            class="scroll-pointer"
+            [ngStyle]="{'height':scrollPointer.height + 'px', 'top': scrollPointer.top + 'px'}"
+        ></div>
+        <ul class="content-list">
+            <li
+                class="content-item"
+                *ngFor="let group of checklistData; let i = index;"
+            >
+                <span
+                    class="group-title"
+                    (click)="scrollTo(i)"
+                >
+                    {{group.title}}
+                </span>
+                <div
+                    class="group-progress"
+                    [style.width]="getGropuProgress(group)"
+                    [class.finished]="getGropuProgress(group) === '100%'"
+                ></div>
+            </li>
+        </ul>
+    </div>
+
+</nav>

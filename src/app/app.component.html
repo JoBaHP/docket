@@ -1,0 +1,17 @@
+<app-status-bar></app-status-bar>
+
+<div
+    class="app-page-wrap"
+    [class.mobile]="isMobile"
+>
+    <app-content></app-content>
+
+    <div class="app-page">
+        <app-header class="header"></app-header>
+        <div class="main-content-wrap">
+            <router-outlet></router-outlet>
+        </div>
+
+        <app-footer class="footer"></app-footer>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+  "external": {
+    "urls": []
+  },
+  "static.ignore": ["^https://private"],
+  "routing": {
+    "index": "/index.html"
+  }
+}

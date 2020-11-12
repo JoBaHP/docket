@@ -1,0 +1,6 @@
+@import './colors';
+
+.ng-invalid.ng-touched {
+  border-color: $color-error;
+  outline: 0;
+}

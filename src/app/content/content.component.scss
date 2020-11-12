@@ -1,0 +1,76 @@
+@import "../../lib/colors";
+@import "../../lib/variables";
+$content-item-gap: 1rem;
+
+.content-placeholder {
+  width: 15rem;
+  height: 100%;
+}
+
+.content {
+  width: 15rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $color-bg-light;
+  overflow-y: auto;
+}
+
+.content-title {
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: $color-secondary;
+  color: $color-light;
+}
+
+.content-list-wrap {
+  position: relative;
+}
+
+.scroll-pointer {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-color: $color-secondary;
+  opacity: 0.07;
+  transition: all 0.5s;
+}
+
+.content-list {
+  list-style: none;
+  padding: 0 1rem;
+  margin: #{$content-item-gap / 2} 0;
+}
+
+.content-item {
+  position: relative;
+  padding: #{$content-item-gap / 2} 0;
+
+  .group-title {
+    padding-bottom: 0.2rem;
+    display: inline-block;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .group-progress {
+    position: absolute;
+    bottom: #{$content-item-gap / 2};
+    transition: all 0.5s;
+    background-color: $color-main;
+    height: 0.2rem;
+
+    &.finished {
+      background-color: $color-link;
+    }
+  }
+}
+
+@media screen and (max-width: ($desktop-break-point + $desktop-side-content)) {
+  .content,
+  .content-placeholder {
+    display: none;
+  }
+}

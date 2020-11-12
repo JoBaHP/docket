@@ -1,0 +1,29 @@
+@import "../../lib/colors";
+@import "../../lib/buttons";
+
+.preset-group {
+  list-style: none;
+  padding: 0;
+  margin: 0 1rem;
+}
+
+.blank-group {
+  color: $color-main;
+}
+
+.preset-item {
+  padding: 0.5rem 0;
+}
+
+.preset-group-title {
+  background-color: $color-bg-light;
+  padding: 0.5rem;
+  cursor: pointer;
+
+  &.selected {
+    background-color: $color-main;
+    span {
+      color: $color-light;
+    }
+  }
+}

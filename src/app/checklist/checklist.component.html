@@ -1,0 +1,223 @@
+<div class="checklist-page">
+    <app-preset-modal-content
+        [(opened)]="modalWindowOpen"
+        (onSubmit)="onPresetsSelected($event)"
+    >
+    </app-preset-modal-content>
+
+    <app-modal-window
+        [modalWindowActive]="deleteConfirmationOpened"
+        [modalWindowTitle]="deleteConfirmationTitle"
+    >
+        <button
+            class="button button-option"
+            modalWindow-close
+            (click)="rejectDeletion()"
+            role="button"
+            aria-label="close modal window"
+        >
+            <span>(N)o</span>
+        </button>
+        <button
+            class="button"
+            modalWindow-submit
+            (click)="confirmDeletion()"
+            role="button"
+            aria-label="submit deletion and close modal window"
+        >
+            <span>(Y)es</span>
+        </button>
+    </app-modal-window>
+
+    <h1
+        class="title"
+        *ngIf="checklist"
+    >
+        <textarea
+            placeholder="Add Project title here..."
+            autosize
+            rows="1"
+            aria-label="Project title"
+            (keypress)="keyupMainTitle($event)"
+            (change)="saveChecklist(false)"
+            class="title-input"
+            [(ngModel)]="checklist.title"
+            placeholer="Checklist title"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+        ></textarea>
+    </h1>
+
+    <div class="add-group-control">
+        <a
+            (click)="openModalWindow()"
+            class="add-group"
+            aria-haspopup="true"
+            role="button"
+        >
+            Add groups
+        </a>
+    </div>
+
+    <ul
+        class="group-checklist"
+        *ngIf="checklist?.data.length"
+    >
+        <li
+            class="group-item"
+            [id]="'group' + groupIndex"
+            *ngFor="let group of checklist.data; let groupIndex = index"
+        >
+            <textarea
+                autosize
+                rows="1"
+                placeholder="Add Checklist group title here..."
+                [appRefocus]="{selectedInput: selectedInput, newOrder: group.order + '_group_title'}"
+                [appFocus]="checklistRendered && _checklistService.inputToFocus === 'g_'+groupIndex && group.title === ''"
+                aria-label="Checklist group title"
+                type="text"
+                (change)="saveChecklist(false)"
+                (keyup)="onInputKeyup($event)"
+                (keydown)="onInputKeydown($event, group.order + '_group_title')"
+                [(ngModel)]="group.title"
+                class="group-title"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+            ></textarea>
+            <div
+                class="action-button group-delete"
+                (click)="deleteGroup(groupIndex)"
+                role="button"
+                aria-label="delete this checklist group"
+            >
+                <svg class="icon icon-delete">
+                    <use xlink:href="assets/defs.svg#icon-delete"></use>
+                </svg>
+            </div>
+            <ul
+                class="item-checklist"
+                [dragula]="'group_'+groupIndex"
+                [dragulaModel]='group.items'
+            >
+                <li
+                    class="item"
+                    *ngFor="let item of group.items; let checkboxIndex = index"
+                >
+                    <div class="decorated-checkbox">
+                        <input
+                            (change)="saveChecklist(true)"
+                            (click)="$event.stopPropagation()"
+                            role="checkbox"
+                            type="checkbox"
+                            [(ngModel)]="item.checked"
+                            [id]="groupIndex + '_' + checkboxIndex"
+                            class="decorated-checkbox"
+                        >
+                        <label [for]="groupIndex + '_' + checkboxIndex"></label>
+                    </div>
+                    <svg class="icon icon-move-vertical">
+                        <use xlink:href="assets/defs.svg#icon-move-vertical"></use>
+                    </svg>
+                    <div class="item-title-wrap">
+                        <textarea
+                            autosize
+                            rows="1"
+                            placeholder="Add Item title here..."
+                            aria-label="Checkbox label input"
+                            [appRefocus]="{selectedInput: selectedInput, newOrder: item.order + '_item_title'}"
+                            [appFocus]="checklistRendered && _checklistService.inputToFocus === 'g_'+groupIndex+'_i_'+checkboxIndex  && item.title === ''"
+                            (change)="saveChecklist(fasle)"
+                            (keyup)="onInputKeyup($event)"
+                            (keydown)="onInputKeydown($event, item.order + '_item_title')"
+                            type="text"
+                            [(ngModel)]="item.title"
+                            class="item-title"
+                            autocomplete="off"
+                            autocorrect="off"
+                            autocapitalize="off"
+                            spellcheck="false"
+                        ></textarea>
+                        <div
+                            class="delete-button"
+                            (click)="deleteCheckbox(groupIndex, checkboxIndex)"
+                            role="button"
+                            aria-label="delete checkbox item"
+                        >
+                            <svg class="icon icon-delete">
+                                <use xlink:href="assets/defs.svg#icon-delete"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <textarea
+                        autosize
+                        rows="1"
+                        aria-label="Checkbox description input"
+                        role="textbox"
+                        [appRefocus]="{selectedInput: selectedInput, newOrder: item.order + '_item_help'}"
+                        [appFocus]="true"
+                        *ngIf="groupIndex + '_' + checkboxIndex === editedHelpTextId"
+                        class="item-help-text item-help-text-edited"
+                        (keyup)="onInputKeyup($event)"
+                        (keydown)="onInputKeydown($event, item.order + '_item_help')"
+                        [ngClass]="{'no-shadow': item.help === ''}"
+                        (blur)="editedHelpTextId = ''"
+                        (change)="saveChecklist(true)"
+                        [(ngModel)]="item.help"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                    ></textarea>
+
+                    <div
+                        aria-label="Checkbox description"
+                        *ngIf="groupIndex + '_' + checkboxIndex !== editedHelpTextId"
+                        class="item-help-text no-shadow"
+                        (click)="setEditedHelpText(groupIndex + '_' + checkboxIndex)"
+                    >
+                        <span
+                            *ngIf="item.help"
+                            [innerHTML]="item.help | urlToLink"
+                        ></span>
+                        <span *ngIf="!item.help">Add more info here...</span>
+                    </div>
+
+                </li>
+            </ul>
+            <div
+                class="group-buttons"
+                role="group"
+                aria-label="Choose an action"
+            >
+
+                <div
+                    class="action-button"
+                    (click)="addItemToGroup(groupIndex)"
+                    aria-haspopup="true"
+                    role="button"
+                >
+                    <svg class="icon icon-add">
+                        <use xlink:href="assets/defs.svg#icon-add"></use>
+                    </svg>
+                    <span class="button-text">Add Item</span>
+                </div>
+                <div
+                    class="action-button"
+                    (click)="addGroupAfter(groupIndex)"
+                    aria-haspopup="true"
+                    role="button"
+                >
+                    <svg class="icon icon-add">
+                        <use xlink:href="assets/defs.svg#icon-add"></use>
+                    </svg>
+                    <span class="button-text">Add Group after this one</span>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+</div>

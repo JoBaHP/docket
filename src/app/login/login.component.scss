@@ -1,0 +1,72 @@
+@import "../../lib/colors";
+@import "../../lib/buttons";
+@import "../../lib/forms";
+
+:host {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab {
+  width: 30%;
+  flex-grow: 1;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  bottom: -1px;
+
+  &.active {
+    border: 1px solid $color-text-light;
+    border-bottom: 0;
+    background-color: $color-bg-light;
+  }
+}
+
+.icon-user {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0.5rem;
+  fill: $color-text-light;
+}
+
+.login {
+  min-width: 320px;
+  text-align: center;
+  padding: 1rem;
+}
+
+.inputs {
+  background-color: $color-bg-light;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border: 1px solid $color-text-light;
+}
+
+.form-row {
+  padding-bottom: 0.5rem;
+
+  input {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+}
+
+.password-info {
+  font-size: 0.8rem;
+}
+
+.submit-row {
+  padding: 0.5rem 0;
+
+  input {
+    width: 100%;
+    padding: 0 0.5rem;
+    text-align: center;
+  }
+}

@@ -1,0 +1,88 @@
+<div class="login">
+    <div class="tabs">
+        <div
+            class="tab active"
+            [class.active]="mode === 'login'"
+            (click)="mode = 'login'"
+        >
+            Login
+        </div>
+        <svg class="icon icon-user">
+            <use :xlink:href=" assets/defs.svg#icon-user "></use>
+        </svg>
+        <div
+            class="tab"
+            [class.active]="mode === 'register'"
+            (click)="mode = 'register'"
+        >
+            Register
+        </div>
+    </div>
+
+    <form
+        novalidate
+        class="form"
+        #loginForm=ngForm
+        (ngSubmit)="submitForm()"
+    >
+        <div class="inputs">
+            <div class="form-row">
+                <input
+                    type="email"
+                    required
+                    [(ngModel)]="formData.email"
+                    name="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    placeholder="e-mail"
+                >
+
+            </div>
+            <div class="form-row">
+                <input
+                    type="password"
+                    minlength="6"
+                    [(ngModel)]="formData.password"
+                    name="password"
+                    placeholder="password"
+                >
+            </div>
+            <div
+                class="form-row"
+                *ngIf="mode === 'register'"
+            >
+                <input
+                    type="password"
+                    minlength="6"
+                    [(ngModel)]="formData.passwordConfirmation"
+                    name="passwordRepeat"
+                    placeholder="password confirmation"
+                >
+            </div>
+            <div
+                class="form-row"
+                *ngIf="mode === 'register'"
+            >
+                <span class="password-info">
+                    Password must have at least 6 characters
+                </span>
+            </div>
+        </div>
+
+        <div class="submit-row">
+            <input
+                *ngIf="mode === 'login'"
+                type="submit"
+                [disabled]="!loginForm.valid"
+                [value]="mode "
+                class="button "
+            >
+            <input
+                *ngIf="mode === 'register'"
+                type="submit"
+                [disabled]="!loginForm.valid || formData.password != formData.passwordConfirmation"
+                [value]="mode "
+                class="button "
+            >
+        </div>
+    </form>
+</div>

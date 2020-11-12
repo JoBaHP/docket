@@ -1,0 +1,67 @@
+<div class="page">
+    <h1 class="text-center">FAQ</h1>
+    <ul class="list-style-none">
+        <li class='li-headline'>
+            How can I use it?
+            <ul>
+                <li class="li-text">
+                    Just press the "Create new checklist" button. Then in your new checklist "Add groups" and select which checklist groups are relevant for your project.
+                    <br>
+                    You can add new custom items, modify presets from template or delete them.
+                </li>
+            </ul>
+        </li>
+        <li class='li-headline'>
+            Is a checklist persistent?
+            <ul>
+                <li class="li-text">
+                    Yes, each checklist get a custom url which can be shared with friends and colleagues.
+                </li>
+            </ul>
+        </li>
+        <li class='li-headline'>
+            Can I change templates?
+            <ul>
+                <li class="li-text">
+                    The templates are actually hardcoded jsons in
+                    <a href="https://github.com/Rezi/cHECK/blob/feature/layout/src/app/checklist-service/default-checklist.ts">github repository</a>
+                    .
+                    Please create a pull request (with a comment). I'll be happy to accept it, if it makes a sense.
+                </li>
+            </ul>
+        </li>
+        <li class='li-headline'>
+            Is the checklist private
+            <ul>
+                <li class="li-text">
+                    No and Yes, each checklist has unique url. It is so complex, that there is almost zero chance someone guess you checklists url.
+                </li>
+            </ul>
+        </li>
+        <li class='li-headline'>
+            Can more users work on same checklist at the same time?
+            <ul>
+                <li class="li-text">
+                    Yes, it supports realtime updates via websockets. You will changes of other users in real time (changes are submited once input is blurred, not on every keystroke)
+                </li>
+            </ul>
+        </li>
+        <li class='li-headline'>
+            Why should I register/log in?
+            <ul>
+                <li class="li-text">
+                    When logged in, all visited checklists are recorded and shown in main page. So you can easily access them later from othe computer.
+                </li>
+            </ul>
+        </li>
+        <li class='li-headline'>
+            Why I don't see my checklist from other computer?
+            <ul>
+                <li class="li-text">
+                    Visited checklists are stored in localStorage, hence related to computer and browser were you cretated or visited them. Try to register to keep your checklists across machines.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</div>

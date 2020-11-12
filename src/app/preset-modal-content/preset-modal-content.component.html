@@ -1,0 +1,54 @@
+<app-modal-window
+    [modalWindowActive]="openedValue"
+    [modalWindowTitle]="'Choose preset checkbox group(s)'"
+>
+    <button
+        class="button button-option"
+        modalWindow-close
+        (click)="closeModalWindow($event)"
+        role="button"
+        aria-label="close modal window"
+    >
+        <span>Close</span>
+    </button>
+    <button
+        class="button"
+        modalWindow-submit
+        (click)="submitModalWindow($event)"
+        role="button"
+        aria-label="submit selection and close modal window"
+    >
+        <span>Add selected</span>
+    </button>
+
+    <div modalWindow-body>
+        <ul class="preset-group">
+            <li
+                class="preset-item"
+                *ngFor="let presetGroup of checklistPresets.data;"
+            >
+                <div
+                    class="preset-group-title"
+                    role="listbox"
+                    (click)="presetGroup.selected = !presetGroup.selected"
+                    [class.selected]="presetGroup.selected"
+                >
+                    <span
+                        *ngIf="presetGroup.title"
+                        role="option"
+                    >
+                        {{ presetGroup.title }}
+                    </span>
+                    <span
+                        *ngIf="!presetGroup.title"
+                        class="blank-group"
+                        role="option"
+                    >
+                        Blank checklist
+                    </span>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</app-modal-window>

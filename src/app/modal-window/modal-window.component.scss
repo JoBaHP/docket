@@ -1,0 +1,52 @@
+@import "../../lib/mixins.scss";
+@import "../../lib/buttons.scss";
+@import "../../lib/variables.scss";
+
+$padding: 1.2rem;
+$margin: 1.2rem;
+
+.modal-wrap {
+  @extend %overlay-background;
+  z-index: 100;
+  cursor: default;
+
+  .modal-container {
+    box-shadow: 0 0 0 1000rem rgba(0, 0, 0, 0.3);
+    width: calc(100% - 2.4rem);
+    max-width: $tablet-break-point;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%) scale(1);
+    transform-origin: top left;
+    transition: transform 0.5s ease-out, top 0.5s ease-out, left 0.5s ease-out,
+      opacity 0.5s ease-out;
+    opacity: 1;
+    background: $color-light;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+
+  .modal-title {
+    padding: $padding;
+    margin-bottom: $margin;
+    text-align: center;
+    font-size: 1.3rem;
+    background-color: $color-secondary;
+    color: $color-light;
+  }
+
+  .modal-buttons {
+    padding: $padding;
+    text-align: center;
+
+    .button-wrap {
+      position: relative;
+      display: inline-block;
+    }
+  }
+
+  .modal-window-close {
+    margin-left: 0.6rem;
+  }
+}

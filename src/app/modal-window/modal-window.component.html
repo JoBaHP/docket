@@ -1,0 +1,23 @@
+<div
+    class="modal-wrap"
+    *ngIf="modalWindowActive"
+>
+    <div
+        class="modal-container"
+        (click)="preventClick($event)"
+    >
+        <div class="modal-title">
+            <span>{{ modalWindowTitle }}</span>
+        </div>
+        <ng-content select="[modalWindow-body]"></ng-content>
+        <div class="modal-buttons">
+            <div class="button-wrap">
+                <ng-content select="[modalWindow-submit]"></ng-content>
+            </div>
+            <div class="button-wrap modal-window-close">
+                <ng-content select="[modalWindow-close]"></ng-content>
+            </div>
+        </div>
+
+    </div>
+</div>

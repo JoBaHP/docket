@@ -1,0 +1,62 @@
+<div class="create-checklist-wrap">
+    <div class="introduction">
+        Your tool for well&nbsp;done software projects
+    </div>
+    <button
+        class="add-checklist-button button"
+        (click)="createChecklist()"
+        tabindex="2"
+        aria-label="Create new checklist"
+    >
+        Create new checklist
+    </button>
+    <div
+        class="info-block"
+        *ngIf="!checklistsByLoggedUser"
+    >
+        To keep track of your visited checklists, log in.
+    </div>
+
+    <div
+        class="checklist-history-wrap"
+        *ngIf="!checklistsByLoggedUser?.length && checklistHistory?.length"
+    >
+        <div class="checklist-history-title">
+            Latest checklists opened in this&nbsp;browser:
+        </div>
+        <ul class="checklist-history">
+            <li
+                class="history-item"
+                *ngFor="let item of checklistHistory"
+            >
+                <a
+                    [routerLink]="'/list/'+ item.id"
+                    [attr.aria-label]="'Go to following checklist: ' + (item.title || 'No title available')"
+                >
+                    {{item.title || 'No title available'}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div
+        class="checklist-history-wrap"
+        *ngIf="checklistsByLoggedUser?.length"
+    >
+        <div class="checklist-history-title">Your checklists:</div>
+        <ul class="checklist-history">
+            <li
+                class="history-item"
+                *ngFor="let item of checklistsByLoggedUser"
+            >
+                <a
+                    [routerLink]="'/list/'+ item.id"
+                    [attr.aria-label]="'Go to following checklist: ' + (item.title || 'No title available')"
+                >
+                    {{item.title || 'No title available'}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

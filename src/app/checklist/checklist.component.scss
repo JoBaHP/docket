@@ -1,0 +1,263 @@
+@import "../../lib/decorated-checkbox";
+@import "../../lib/variables";
+@import "../../lib/buttons";
+
+:host {
+  flex-grow: 1;
+  z-index: 1;
+  margin: 0 auto;
+  width: 100%;
+  max-width: $desktop-break-point;
+}
+
+textarea {
+  resize: none;
+}
+
+.checklist-page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  padding: 1rem 1rem 0;
+  margin-bottom: 0;
+}
+
+.title-input {
+  width: 100%;
+  padding: 0 1rem;
+  border-color: transparent;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    color: $color-text-dark;
+    box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+}
+
+.add-group-control {
+  padding: 2rem;
+}
+
+.add-group {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $color-main;
+  color: $color-light !important;
+}
+
+.group-checklist {
+  list-style: none;
+  padding: 0 1.5rem;
+}
+
+.group-delete {
+  opacity: 0;
+  transition: opacity 0.5s;
+  margin-right: 0.6rem;
+}
+
+.group-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  opacity: 0;
+  transition: opacity 0.5s;
+  padding: 1rem 1rem 1rem 2.5rem;
+}
+
+.action-button {
+  margin-left: 0.3rem;
+  display: flex;
+  align-items: center;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+
+  .button-text {
+    color: $color-link;
+    padding-left: 0.6rem;
+  }
+}
+
+.action-button:hover {
+  background-color: $color-light;
+}
+
+.group-item {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 1rem;
+
+  &:hover {
+    background-color: $color-bg-light;
+  }
+
+  @at-root {
+    /deep/ .mobile .group-item {
+      background-color: $color-light !important;
+      border-top: 1px solid;
+      border-radius: 0;
+    }
+  }
+
+  &:hover .group-delete {
+    opacity: 1;
+  }
+
+  @at-root {
+    /deep/ .mobile .group-item .group-delete {
+      opacity: 1;
+    }
+  }
+
+  &:hover .group-buttons {
+    opacity: 1;
+  }
+
+  @at-root {
+    /deep/ .mobile .group-item .group-buttons {
+      opacity: 1;
+    }
+  }
+
+  .group-title {
+    position: relative;
+    flex-grow: 1;
+    font-size: 1.5rem;
+    color: $color-main;
+    padding: 0 1rem;
+    border-color: transparent;
+    background-color: transparent;
+    width: calc(100% - 60px);
+  }
+
+  .group-title:focus {
+    outline: none;
+    color: $color-text-dark;
+    box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+}
+
+.item-checklist {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.item {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 1rem 0 0;
+  padding: 0 0 0 1rem;
+  cursor: move;
+  transition: background-color 0.5s;
+  position: relative;
+
+  &:hover {
+    background-color: $color-light;
+  }
+
+  .decorated-checkbox {
+    padding-top: 0.7rem;
+  }
+}
+
+.item-help-text {
+  width: 100%;
+  margin-left: 2rem;
+  padding: 0.3rem;
+  color: $color-text-light;
+  border: 1px solid transparent;
+  position: relative;
+  min-height: 2.2rem;
+  cursor: text;
+}
+
+.item-help-text-edited {
+  color: $color-text-dark;
+  box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+
+  &.no-shadow:not(:focus) {
+    box-shadow: initial;
+  }
+}
+.item-title-wrap {
+  flex-grow: 1;
+  font-size: 1.3rem;
+  position: relative;
+  width: calc(100% - 2rem);
+
+  .item-title {
+    width: 100%;
+    padding: 0.3rem 0.6rem;
+    border-color: transparent;
+    background-color: transparent;
+    color: $color-text;
+  }
+
+  .delete-button {
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 0.5s;
+    padding: 0.5rem;
+    margin-left: 0.4rem;
+    cursor: pointer;
+    font-size: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: $color-light;
+  }
+
+  .item-title:focus ~ .delete-button {
+    z-index: 3;
+  }
+}
+
+.icon-move-vertical {
+  width: 26px;
+  height: 26px;
+  fill: $color-border;
+  position: absolute;
+  left: 0.8rem;
+  top: 3rem;
+  opacity: 0;
+  touch-action: none;
+}
+
+.item:hover .delete-button,
+.item:hover .icon-move-vertical {
+  opacity: 1;
+}
+
+@at-root {
+  /deep/ .mobile .item .delete-button {
+    opacity: 1 !important;
+  }
+  /deep/ .mobile .item .icon-move-vertical {
+    opacity: 1 !important;
+  }
+}
+
+.item-title:focus {
+  position: relative;
+  outline: none;
+  color: $color-text-dark;
+  box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.item-help-text:focus {
+  outline: none;
+}
